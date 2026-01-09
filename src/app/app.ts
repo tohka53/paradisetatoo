@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   
   private countdownInterval: any;
   // Fecha de lanzamiento: 45 días desde ahora (puedes ajustar)
-  private launchDate: Date = new Date(Date.now() + 45 * 24 * 60 * 60 * 1000);
+  private launchDate: Date = new Date(Date.now() + 10 * 24 * 60 * 60 * 1000);
 
   ngOnInit(): void {
     this.updateCountdown();
