@@ -91,14 +91,14 @@ export class AppComponent implements OnInit, OnDestroy {
         styles: ['Fineline', 'Minimalista', 'Dotwork', 'Micro Tatuajes']
       },
     {
-      name: 'DANIEL',
-      specialty: 'Chicano & Lettering',
-      image: '/daniel/daniel.png',
-      bioEs: '',
-      bioEn: '',
-      experience: '9 años',
-      styles: ['Chicano', 'Lettering', 'Script', 'Black & Grey']
-    },
+  name: 'DANIEL',
+  specialty: 'Traditional Tattoo',
+     image: '/daniel/daniel.png',
+  experience: '6 años', // 👈 Ajusta con los años reales de experiencia
+  bioEs: 'Desde Antigua Guatemala, desarrollo un estilo enfocado en el tatuaje tradicional clásico, combinando líneas fuertes con detalles en puntillismo para darle profundidad y carácter a cada pieza. Trabajo con clientes de todo el mundo y ofrezco atención en inglés y español, buscando siempre crear tatuajes duraderos y con identidad.',
+  bioEn: 'From Antigua Guatemala, I develop a style focused on classic traditional tattooing, combining strong lines with dotwork details to give depth and character to each piece. I work with clients from all over the world and offer service in English and Spanish, always seeking to create lasting tattoos with identity.',
+  styles: ['Traditional', 'Dotwork', 'Bold Lines']
+},
    {
   name: 'LUIS',
   specialty: 'Blackwork Ilustrativo',
