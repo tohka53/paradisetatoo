@@ -61,7 +61,7 @@ export class AppComponent implements OnInit, OnDestroy {
     'location.hours': { es: 'HORARIO', en: 'HOURS' },
     'location.contact': { es: 'CONTACTO', en: 'CONTACT' },
     'location.whatsapp': { es: 'ENVIAR WHATSAPP', en: 'SEND WHATSAPP' },
-    'location.addressText': { es: '5ta Avenida Norte #25<br>La Antigua Guatemala<br>Sacatepéquez, Guatemala', en: '5ta Avenida Norte #25<br>Antigua Guatemala<br>Sacatepéquez, Guatemala' },
+    'location.addressText': { es: '9na Calle Poniente, Casa No. 9<br>La Antigua Guatemala<br>Sacatepéquez, Guatemala', en: '9na Calle Poniente, Casa No. 9<br>Antigua Guatemala<br>Sacatepéquez, Guatemala' },
     'location.hoursText': { es: 'Lunes - Sábado: 08:00 AM - 07:00 PM<br>Domingo: 10:00 AM - 06:00 PM', en: 'Monday - Saturday: 08:00 AM - 07:00 PM<br>Sunday: 10:00 AM - 06:00 PM' },
     'contact.label': { es: 'ESCRÍBENOS', en: 'WRITE US' },
     'contact.title': { es: 'CONTACTO', en: 'CONTACT' },
