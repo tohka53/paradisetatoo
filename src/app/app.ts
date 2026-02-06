@@ -62,7 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
     'location.contact': { es: 'CONTACTO', en: 'CONTACT' },
     'location.whatsapp': { es: 'ENVIAR WHATSAPP', en: 'SEND WHATSAPP' },
     'location.addressText': { es: '5ta Avenida Norte #25<br>La Antigua Guatemala<br>Sacatepéquez, Guatemala', en: '5ta Avenida Norte #25<br>Antigua Guatemala<br>Sacatepéquez, Guatemala' },
-    'location.hoursText': { es: 'Lunes - Sábado: 10:00 AM - 8:00 PM<br>Domingo: 11:00 AM - 6:00 PM', en: 'Monday - Saturday: 10:00 AM - 8:00 PM<br>Sunday: 11:00 AM - 6:00 PM' },
+    'location.hoursText': { es: 'Lunes - Sábado: 08:00 AM - 07:00 PM<br>Domingo: 10:00 AM - 06:00 PM', en: 'Monday - Saturday: 08:00 AM - 07:00 PM<br>Sunday: 10:00 AM - 06:00 PM' },
     'contact.label': { es: 'ESCRÍBENOS', en: 'WRITE US' },
     'contact.title': { es: 'CONTACTO', en: 'CONTACT' },
     'contact.subtitle': { es: 'Cuéntanos sobre tu próximo tatuaje', en: 'Tell us about your next tattoo' },
