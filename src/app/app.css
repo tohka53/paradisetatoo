@@ -225,4 +225,10 @@ nav.nav-scrolled{padding:12px 0;background:rgba(0,0,0,.92);backdrop-filter:blur(
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08)}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 
+.logo-img {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+}
+
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}

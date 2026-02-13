@@ -111,7 +111,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ];
 
   artists: Artist[] = [
-    { name: 'MEMMINK', specialty: 'Realism & Sub Realism', image: '/memmink/memmink.png', experience: '10+ años', bioEs: 'Artista internacional del tatuaje y fundador de Paradise Tattoo Antigua Guatemala y Black Ocean ubicado en El Salvador. Con más de 10 años de experiencia en el mundo artístico del tatuaje.', bioEn: 'International tattoo artist and founder of Paradise Tattoo Antigua Guatemala and Black Ocean located in El Salvador. With more than 10 years of experience in tattooing.', styles: ['Realism', 'Sub Realism', 'Oriental', 'Multi-Session Work'] },
+    { name: 'MEMINK', specialty: 'Realism & Sub Realism', image: '/memmink/memmink.png', experience: '10+ años', bioEs: 'Artista internacional del tatuaje y fundador de Paradise Tattoo Antigua Guatemala y Black Ocean ubicado en El Salvador. Con más de 10 años de experiencia en el mundo artístico del tatuaje.', bioEn: 'International tattoo artist and founder of Paradise Tattoo Antigua Guatemala and Black Ocean located in El Salvador. With more than 10 years of experience in tattooing.', styles: ['Realism', 'Sub Realism', 'Oriental', 'Multi-Session Work'] },
     { name: 'IÑAKI', specialty: 'Tradicional & Línea Fina', image: '/fotos/inaki0.JPG', bioEs: 'Guatemalteco, con más de 14 años de experiencia en el arte del tatuaje.', bioEn: 'Guatemalan tattoo artist with over 14 years of experience.', experience: '+14 años', styles: ['Traditional', 'Fine Line', 'Black & Grey', 'Color'] },
     { name: 'ABRAHAM LEMUS', specialty: 'Oriental Ilustrativo', image: '/abhram/abhram.png', experience: '8 años', bioEs: 'Abraham Lemus es un artista del tatuaje multidisciplinario radicado en Antigua Guatemala.', bioEn: 'Abraham Lemus is a multidisciplinary tattoo artist based in Antigua, Guatemala.', styles: ['Oriental', 'Irezumi', 'Illustrative', 'Cartoon/Anime'] },
     { name: 'JUANPA CARCAMO', specialty: 'Realismo & Retratos', image: '/juanpa/juanpa.jpeg', bioEs: 'Especialista en realismo y retratos.', bioEn: 'Specialist in realism and portraits.', experience: '8 años', styles: ['Realism', 'Portraits', 'Black & Grey', 'Color Realism'] },
@@ -119,7 +119,16 @@ export class AppComponent implements OnInit, OnDestroy {
     { name: 'BRANDON', specialty: 'Tradicional & Línea Fina', image: '/brandon/brandon.png', bioEs: 'Especializado en tatuajes tradicionales y línea fina.', bioEn: 'Specialized in traditional tattoos and fine line work.', experience: '+14 años', styles: ['Traditional', 'Fine Line', 'Black & Grey', 'Color'] },
     { name: 'ALEXA', specialty: 'Fineline & Minimalista', image: '/made/madealexa.png', experience: '5 años', bioEs: 'Tatuadora Guatemalteca especializada en línea fina y diseños botánicos.', bioEn: 'Guatemalan tattoo artist specialized in fine line and botanical designs.', styles: ['Fineline', 'Minimalist', 'Dotwork', 'Botanical'] },
     { name: 'DANIEL', specialty: 'Traditional Tattoo', image: '/daniel/daniel.png', experience: '6 años', bioEs: 'Estilo enfocado en el tatuaje tradicional clásico.', bioEn: 'Style focused on classic traditional tattooing.', styles: ['Traditional', 'Dotwork', 'Bold Lines'] },
-    { name: 'LUIS', specialty: 'Blackwork Ilustrativo', image: '/luis/luis.png', experience: '3 años', bioEs: 'Especializado en blackwork ilustrativo y ornamentos.', bioEn: 'Specialized in illustrative blackwork and ornamental designs.', styles: ['Blackwork', 'Illustrative', 'Ornamental', 'Fineline'] }
+    { name: 'LUIS', specialty: 'Blackwork Ilustrativo', image: '/luis/luis.png', experience: '3 años', bioEs: 'Especializado en blackwork ilustrativo y ornamentos.', bioEn: 'Specialized in illustrative blackwork and ornamental designs.', styles: ['Blackwork', 'Illustrative', 'Ornamental', 'Fineline'] },
+    { 
+      name: 'ANGEL', 
+      specialty: 'Blackwork Ilustrativo', 
+      image: '/angel/angel.jpeg', 
+      experience: '3 años', 
+      bioEs: 'Con 3 años de experiencia en el mundo del tatuaje, su estilo se ha inclinado hacia el blackwork, con énfasis en el blackwork ilustrativo y los diseños ornamentales definidos. También disfruta de estilos como el fineline y el black and grey. En el ámbito artístico general, cuenta con obras en óleo, acrílico y acuarela, así como dibujos con carboncillo, grafito, lápices de colores y tinta con plumillas técnicas. Cursó tres años de Arquitectura y dos semestres de Diseño Gráfico en la Universidad de San Carlos de Guatemala.', 
+      bioEn: 'With 3 years of experience in the tattoo world, his style has gravitated toward blackwork, with an emphasis on illustrative blackwork and defined ornamental designs. He also enjoys styles such as fineline and black and grey. In the broader art world, he has works in oil, acrylic, and watercolor, as well as drawings in charcoal, graphite, colored pencils, and ink with technical pens. He studied three years of Architecture and two semesters of Graphic Design at the Universidad de San Carlos de Guatemala.', 
+      styles: ['Blackwork', 'Illustrative', 'Ornamental', 'Fineline'] 
+    }
   ];
 
   works: Work[] = [
@@ -129,20 +138,23 @@ export class AppComponent implements OnInit, OnDestroy {
     { id: 14, image: '/made/6.jpeg', style: '', artist: 'Alexa', showInGallery: true, showInProfile: true },
     { id: 17, image: '/abhram/3.png', style: '', artist: 'ABRAHAM LEMUS', showInGallery: true, showInProfile: true },
     { id: 19, image: '/abhram/5.jpeg', style: '', artist: 'ABRAHAM LEMUS', showInGallery: true, showInProfile: true },
-    { id: 21, image: '/luis/2.jpg', style: '', artist: 'LUIS', showInGallery: true, showInProfile: true },
-    { id: 23, image: '/luis/4.jpg', style: '', artist: 'LUIS', showInGallery: true, showInProfile: true },
+    { id: 21, image: '/angel/2.jpg', style: '', artist: 'ANGEL', showInGallery: true, showInProfile: true },
+    { id: 23, image: '/angel/4.jpg', style: '', artist: 'ANGEL', showInGallery: true, showInProfile: true },
     { id: 26, image: '/daniel/1.jpg', style: '', artist: 'DANIEL', showInGallery: true, showInProfile: true },
     { id: 29, image: '/daniel/4.jpg', style: '', artist: 'DANIEL', showInGallery: true, showInProfile: true },
-    { id: 33, image: '/memmink/2.JPG', style: '', artist: 'MEMMINK', showInGallery: true, showInProfile: true },
-    { id: 35, image: '/memmink/4.JPEG', style: '', artist: 'MEMMINK', showInGallery: true, showInProfile: true },
-    { id: 37, image: '/memmink/6.JPEG', style: '', artist: 'MEMMINK', showInGallery: true, showInProfile: true },
+    { id: 33, image: '/memmink/2.JPG', style: '', artist: 'MEMINK', showInGallery: true, showInProfile: true },
+    { id: 35, image: '/memmink/4.JPEG', style: '', artist: 'MEMINK', showInGallery: true, showInProfile: true },
+    { id: 37, image: '/memmink/6.JPEG', style: '', artist: 'MEMINK', showInGallery: true, showInProfile: true },
     { id: 39, image: '/kevin/2.jpeg', style: '', artist: 'KEVIN', showInGallery: true, showInProfile: true },
     { id: 41, image: '/kevin/4.jpeg', style: '', artist: 'KEVIN', showInGallery: true, showInProfile: true },
     { id: 44, image: '/juanpa/1.jpeg', style: '', artist: 'JUANPA', showInGallery: true, showInProfile: true },
     { id: 45, image: '/juanpa/2.jpeg', style: '', artist: 'JUANPA', showInGallery: true, showInProfile: true },
     { id: 47, image: '/brandon/2.JPG', style: '', artist: 'BRANDON', showInGallery: true, showInProfile: true },
     { id: 49, image: '/brandon/4.jpg', style: '', artist: 'BRANDON', showInGallery: true, showInProfile: true },
-    { id: 50, image: '/brandon/5.jpg', style: '', artist: 'BRANDON', showInGallery: true, showInProfile: true }
+    { id: 50, image: '/brandon/5.jpg', style: '', artist: 'BRANDON', showInGallery: true, showInProfile: true },
+    { id: 51, image: '/luis/2.jpg', style: '', artist: 'LUIS', showInGallery: true, showInProfile: true },
+    { id: 52, image: '/luis/4.jpg', style: '', artist: 'LUIS', showInGallery: true, showInProfile: true },
+    { id: 53, image: '/luis/5.jpg', style: '', artist: 'LUIS', showInGallery: true, showInProfile: true }
   ];
 
   constructor() {}

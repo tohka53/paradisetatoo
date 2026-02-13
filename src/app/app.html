@@ -38,7 +38,6 @@
 <!-- HERO — FULL BLEED -->
 <section id="inicio" class="hero">
   <div class="hero-bg">
-    <img src="/hero/hero-studio.jpg" alt="Paradise Tattoo Studio" width="1920" height="1080" loading="eager" fetchpriority="high">
   </div>
   <div class="hero-content">
     <h1 class="hero-title">
@@ -85,7 +84,6 @@
 
 <!-- DIVIDER -->
 <div class="section-divider">
-  <img src="/hero/hero-studio.jpg" alt="Paradise Tattoo Space" loading="lazy" width="1920" height="800" decoding="async">
   <div class="section-divider-content">
     <h2>{{ t('divider.space') }}</h2>
     <p>{{ t('divider.spaceDesc') }}</p>
@@ -167,11 +165,15 @@
       <h2 class="section-title">{{ t('contact.title') }}</h2>
       <p class="section-subtitle">{{ t('contact.subtitle') }}</p>
     </div>
-    <form action="https://formsubmit.co/paradisetattooantigua@gmail.com" method="POST" class="contact-form reveal">
+    <form ngNoForm
+          action="https://formsubmit.co/paradisetattooantigua@gmail.com"
+          method="POST"
+          class="contact-form reveal">
       <input type="hidden" name="_subject" value="Nueva consulta - Paradise Tattoo">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
-      <input type="text" name="_honey" style="display:none">
+      <input type="hidden" name="_honey" style="display:none">
+      <input type="hidden" name="_next" value="https://paradisetattooantigua.com/#contacto">
       <div class="form-row">
         <div class="form-group"><label>{{ t('contact.name') }}</label><input type="text" name="nombre" required></div>
         <div class="form-group"><label>{{ t('contact.email') }}</label><input type="email" name="email" required></div>
