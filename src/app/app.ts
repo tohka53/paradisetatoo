@@ -35,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
   selectedArtist: Artist | null = null;
   artistWorks: Work[] = [];
   faqItems: FaqItem[] = [];
+  viewerImage: string | null = null;
   private observer: IntersectionObserver | null = null;
   private scrollTicking = false;
 
@@ -120,15 +121,7 @@ export class AppComponent implements OnInit, OnDestroy {
     { name: 'ALEXA', specialty: 'Fineline & Minimalista', image: '/made/madealexa.png', experience: '5 años', bioEs: 'Tatuadora Guatemalteca especializada en línea fina y diseños botánicos.', bioEn: 'Guatemalan tattoo artist specialized in fine line and botanical designs.', styles: ['Fineline', 'Minimalist', 'Dotwork', 'Botanical'] },
     { name: 'DANIEL', specialty: 'Traditional Tattoo', image: '/daniel/daniel.png', experience: '6 años', bioEs: 'Estilo enfocado en el tatuaje tradicional clásico.', bioEn: 'Style focused on classic traditional tattooing.', styles: ['Traditional', 'Dotwork', 'Bold Lines'] },
     { name: 'LUIS', specialty: 'Blackwork Ilustrativo', image: '/luis/luis.png', experience: '3 años', bioEs: 'Especializado en blackwork ilustrativo y ornamentos.', bioEn: 'Specialized in illustrative blackwork and ornamental designs.', styles: ['Blackwork', 'Illustrative', 'Ornamental', 'Fineline'] },
-    { 
-      name: 'ANGEL', 
-      specialty: 'Blackwork Ilustrativo', 
-      image: '/angel/angel.jpeg', 
-      experience: '3 años', 
-      bioEs: 'Con 3 años de experiencia en el mundo del tatuaje, su estilo se ha inclinado hacia el blackwork, con énfasis en el blackwork ilustrativo y los diseños ornamentales definidos. También disfruta de estilos como el fineline y el black and grey. En el ámbito artístico general, cuenta con obras en óleo, acrílico y acuarela, así como dibujos con carboncillo, grafito, lápices de colores y tinta con plumillas técnicas. Cursó tres años de Arquitectura y dos semestres de Diseño Gráfico en la Universidad de San Carlos de Guatemala.', 
-      bioEn: 'With 3 years of experience in the tattoo world, his style has gravitated toward blackwork, with an emphasis on illustrative blackwork and defined ornamental designs. He also enjoys styles such as fineline and black and grey. In the broader art world, he has works in oil, acrylic, and watercolor, as well as drawings in charcoal, graphite, colored pencils, and ink with technical pens. He studied three years of Architecture and two semesters of Graphic Design at the Universidad de San Carlos de Guatemala.', 
-      styles: ['Blackwork', 'Illustrative', 'Ornamental', 'Fineline'] 
-    }
+    { name: 'ANGEL', specialty: 'Blackwork Ilustrativo', image: '/angel/angel.jpeg', experience: '3 años', bioEs: 'Con 3 años de experiencia en el mundo del tatuaje, su estilo se ha inclinado hacia el blackwork, con énfasis en el blackwork ilustrativo y los diseños ornamentales definidos. También disfruta de estilos como el fineline y el black and grey. En el ámbito artístico general, cuenta con obras en óleo, acrílico y acuarela, así como dibujos con carboncillo, grafito, lápices de colores y tinta con plumillas técnicas. Cursó tres años de Arquitectura y dos semestres de Diseño Gráfico en la Universidad de San Carlos de Guatemala.', bioEn: 'With 3 years of experience in the tattoo world, his style has gravitated toward blackwork, with an emphasis on illustrative blackwork and defined ornamental designs. He also enjoys styles such as fineline and black and grey. In the broader art world, he has works in oil, acrylic, and watercolor, as well as drawings in charcoal, graphite, colored pencils, and ink with technical pens. He studied three years of Architecture and two semesters of Graphic Design at the Universidad de San Carlos de Guatemala.', styles: ['Blackwork', 'Illustrative', 'Ornamental', 'Fineline'] }
   ];
 
   works: Work[] = [
@@ -212,6 +205,22 @@ export class AppComponent implements OnInit, OnDestroy {
 
   closeArtistProfile(): void { this.selectedArtist = null; this.artistWorks = []; document.body.style.overflow = ''; }
 
+  openImageViewer(image: string): void {
+    this.viewerImage = image;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeImageViewer(): void {
+    this.viewerImage = null;
+    if (!this.selectedArtist) {
+      document.body.style.overflow = '';
+    }
+  }
+
   @HostListener('document:keydown.escape')
-  onEscapeKey(): void { if (this.selectedArtist) this.closeArtistProfile(); if (this.mobileMenuOpen) this.toggleMobileMenu(); }
+  onEscapeKey(): void {
+    if (this.viewerImage) { this.closeImageViewer(); return; }
+    if (this.selectedArtist) this.closeArtistProfile();
+    if (this.mobileMenuOpen) this.toggleMobileMenu();
+  }
 }
