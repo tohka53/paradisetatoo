@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 interface Artist {
   name: string;
@@ -27,7 +27,7 @@ interface FaqItem { q: string; a: string; open: boolean; }
   styleUrls: ['./app.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   currentYear = new Date().getFullYear();
   scrolled = false;
   mobileMenuOpen = false;
@@ -38,6 +38,9 @@ export class AppComponent implements OnInit, OnDestroy {
   viewerImage: string | null = null;
   private observer: IntersectionObserver | null = null;
   private scrollTicking = false;
+
+  @ViewChild('heroVideo') heroVideo!: ElementRef<HTMLVideoElement>;
+  @ViewChild('navLogoVideo') navLogoVideo!: ElementRef<HTMLVideoElement>;
 
   private spanishCodes = ['es','es-ES','es-MX','es-AR','es-CO','es-CL','es-VE','es-PE','es-EC','es-GT','es-CU','es-BO','es-DO','es-HN','es-PY','es-SV','es-NI','es-CR','es-PA','es-UY'];
 
@@ -160,7 +163,45 @@ export class AppComponent implements OnInit, OnDestroy {
     this.initRevealObserver();
   }
 
+  ngAfterViewInit(): void {
+    this.forcePlayVideo(this.heroVideo);
+    this.forcePlayVideo(this.navLogoVideo);
+  }
+
   ngOnDestroy(): void { this.observer?.disconnect(); }
+
+  private forcePlayVideo(ref: ElementRef<HTMLVideoElement> | undefined): void {
+    const video = ref?.nativeElement;
+    if (!video) return;
+
+    // Ensure muted (required for autoplay policy)
+    video.muted = true;
+
+    // Try to play immediately
+    const tryPlay = () => {
+      video.play().catch(() => {
+        // If blocked, retry on first user interaction
+        const playOnInteraction = () => {
+          video.play().catch(() => {});
+          document.removeEventListener('click', playOnInteraction);
+          document.removeEventListener('touchstart', playOnInteraction);
+          document.removeEventListener('scroll', playOnInteraction);
+        };
+        document.addEventListener('click', playOnInteraction, { once: true });
+        document.addEventListener('touchstart', playOnInteraction, { once: true });
+        document.addEventListener('scroll', playOnInteraction, { once: true });
+      });
+    };
+
+    // If video is ready, play now; otherwise wait for it
+    if (video.readyState >= 2) {
+      tryPlay();
+    } else {
+      video.addEventListener('loadeddata', tryPlay, { once: true });
+      // Also try after a short delay as fallback
+      setTimeout(tryPlay, 500);
+    }
+  }
 
   detectLanguage(): void {
     const lang = navigator.language || 'en';

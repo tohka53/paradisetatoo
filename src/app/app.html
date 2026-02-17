@@ -2,9 +2,9 @@
 <nav [ngClass]="{'nav-scrolled': scrolled}">
   <div class="nav-inner">
     <a href="#inicio" class="logo">
-      <video autoplay muted loop playsinline class="logo-video">
-  <source src="/logomove.mp4" type="video/mp4">
-</video>
+      <video #navLogoVideo autoplay muted loop playsinline class="logo-video">
+        <source src="/logomove.mp4" type="video/mp4">
+      </video>
       <div class="logo-text">
         <div class="logo-title">PARADISE</div>
         <div class="logo-subtitle">TATTOO STUDIO</div>
@@ -41,10 +41,10 @@
 <!-- HERO — FULL BLEED VIDEO -->
 <section id="inicio" class="hero">
   <div class="hero-bg">
-   <video autoplay muted loop playsinline preload="auto" poster="/hero/hero-studio.jpg">
-  <source src="/logomove.mp4" type="video/mp4">
-  <img src="/hero/hero-studio.jpg" alt="Paradise Tattoo Studio">
-</video>
+    <video #heroVideo autoplay muted loop playsinline preload="auto" poster="/hero/hero-studio.jpg">
+      <source src="/logomove.mp4" type="video/mp4">
+      <img src="/hero/hero-studio.jpg" alt="Paradise Tattoo Studio">
+    </video>
   </div>
   <div class="hero-content">
     <h1 class="hero-title">
