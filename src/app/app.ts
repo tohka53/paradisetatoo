@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, HostListener, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { inject } from '@vercel/analytics';
 
 interface Artist {
   name: string;
@@ -158,6 +159,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   get galleryWorks(): Work[] { return this.works.filter(w => w.showInGallery); }
 
   ngOnInit(): void {
+    inject(); // Vercel Analytics
     this.detectLanguage();
     this.buildFaq();
     this.initRevealObserver();
