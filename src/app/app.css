@@ -145,7 +145,19 @@ nav.nav-scrolled{padding:12px 0;background:rgba(0,0,0,.92);backdrop-filter:blur(
 .form-group textarea{resize:vertical;min-height:110px}
 .btn-submit{align-self:center;padding:16px 52px;background:var(--accent);color:var(--black);border:none;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;font-family:var(--font-body);transition:all .35s var(--ease)}
 .btn-submit::after{display:none}
-.btn-submit:hover{background:var(--accent-light);transform:translateY(-2px)}
+.btn-submit:hover:not(:disabled){background:var(--accent-light);transform:translateY(-2px)}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-submit-loading{display:inline-flex;align-items:center;gap:10px}
+.btn-submit-spinner{width:12px;height:12px;border:2px solid rgba(0,0,0,.3);border-top-color:var(--black);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* FORM FEEDBACK */
+.form-feedback{display:flex;align-items:center;gap:16px;padding:24px 28px;margin-bottom:40px;border:1px solid;animation:feedbackIn .5s var(--ease) both}
+@keyframes feedbackIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.form-feedback p{font-size:14px;letter-spacing:.04em;line-height:1.6;margin:0}
+.form-feedback svg{flex-shrink:0}
+.form-feedback--success{border-color:rgba(74,222,128,.25);color:#4ade80;background:rgba(74,222,128,.05)}
+.form-feedback--error{border-color:rgba(248,113,113,.25);color:#f87171;background:rgba(248,113,113,.05)}
 
 /* FAQ */
 .faq-section{padding:100px 0;background:var(--black);border-top:1px solid rgba(255,255,255,.06)}
