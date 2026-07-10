@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, HostListener, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { inject } from '@vercel/analytics';
+import { MAINTENANCE_MODE } from './maintenance.config';
 
 interface Artist {
   name: string;
@@ -29,6 +30,7 @@ interface FaqItem { q: string; a: string; open: boolean; }
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
+  maintenanceMode = MAINTENANCE_MODE;
   currentYear = new Date().getFullYear();
   scrolled = false;
   mobileMenuOpen = false;

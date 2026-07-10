@@ -1,5 +1,7 @@
 <script defer src="/_vercel/insights/script.js"></script>
 
+<ng-container *ngIf="!maintenanceMode; else maintenanceTpl">
+
 <!-- NAVIGATION -->
 <nav [ngClass]="{'nav-scrolled': scrolled}">
   <div class="nav-inner">
@@ -297,3 +299,36 @@
 </div>
 
 <router-outlet></router-outlet>
+
+</ng-container>
+
+<!-- ============================================================ -->
+<!-- PANTALLA DE MANTENIMIENTO                                                -->
+<!-- Se activa/desactiva desde src/app/maintenance.config.ts                  -->
+<!-- ============================================================ -->
+<ng-template #maintenanceTpl>
+  <div class="maintenance-screen">
+    <div class="maintenance-inner">
+      <video autoplay muted loop playsinline class="maintenance-logo-video">
+        <source src="/logomove.mp4" type="video/mp4">
+      </video>
+      <div class="maintenance-logo-text">
+        <span class="maintenance-title-main">PARADISE</span>
+        <span class="maintenance-title-sub">Tattoo Studio</span>
+      </div>
+
+      <div class="maintenance-divider"></div>
+
+      <h1 class="maintenance-heading">
+        {{ currentLang === 'es' ? 'Sitio en mantenimiento' : 'Site under maintenance' }}
+      </h1>
+      <p class="maintenance-message">
+        {{ currentLang === 'es'
+          ? 'Estamos realizando mejoras. Volveremos pronto.'
+          : 'We are making improvements. We will be back soon.' }}
+      </p>
+
+      <p class="maintenance-footer">&copy; {{ currentYear }} Paradise Tattoo. Antigua Guatemala.</p>
+    </div>
+  </div>
+</ng-template>

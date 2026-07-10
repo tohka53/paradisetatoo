@@ -246,3 +246,17 @@ nav.nav-scrolled{padding:12px 0;background:rgba(0,0,0,.92);backdrop-filter:blur(
 ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ============================================================ */
+/* MAINTENANCE SCREEN                                            */
+/* ============================================================ */
+.maintenance-screen{position:fixed;inset:0;z-index:9999;background:var(--black);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+.maintenance-inner{display:flex;flex-direction:column;align-items:center;max-width:560px}
+.maintenance-logo-video{width:96px;height:96px;object-fit:contain;border-radius:8px;margin-bottom:20px}
+.maintenance-logo-text{display:flex;flex-direction:column;align-items:center;margin-bottom:32px}
+.maintenance-title-main{font-family:var(--font-heading);font-size:clamp(40px,9vw,64px);letter-spacing:.15em;color:var(--white);line-height:1}
+.maintenance-title-sub{font-size:11px;letter-spacing:.5em;color:var(--g400);font-weight:500;margin-top:6px;text-transform:uppercase}
+.maintenance-divider{width:60px;height:1px;background:var(--accent);margin-bottom:32px}
+.maintenance-heading{font-family:var(--font-heading);font-size:clamp(28px,5vw,42px);letter-spacing:.06em;color:var(--white);margin-bottom:16px}
+.maintenance-message{font-size:15px;line-height:1.7;color:var(--g200);margin-bottom:8px}
+.maintenance-footer{margin-top:48px;font-size:11px;letter-spacing:.1em;color:var(--g600)}
