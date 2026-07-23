@@ -259,4 +259,15 @@ nav.nav-scrolled{padding:12px 0;background:rgba(0,0,0,.92);backdrop-filter:blur(
 .maintenance-divider{width:60px;height:1px;background:var(--accent);margin-bottom:32px}
 .maintenance-heading{font-family:var(--font-heading);font-size:clamp(28px,5vw,42px);letter-spacing:.06em;color:var(--white);margin-bottom:16px}
 .maintenance-message{font-size:15px;line-height:1.7;color:var(--g200);margin-bottom:8px}
+
+/* ============================================================ */
+/* FLOATING SOCIAL SIDE MENU                                     */
+/* ============================================================ */
+.social-float{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:900;display:flex;flex-direction:column;gap:4px;padding:8px;background:rgba(18,18,18,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-left:none;border-radius:0 16px 16px 0;box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.social-float a{width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--white);border-radius:12px;transition:all .3s var(--ease)}
+.social-float a svg{width:22px;height:22px;display:block}
+.social-float a:hover{transform:translateX(3px)}
+.social-float a.wa:hover{background:#25d366;color:#fff}
+.social-float a.ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+@media(max-width:768px){.social-float{gap:2px;padding:6px;border-radius:0 13px 13px 0}.social-float a{width:40px;height:40px}.social-float a svg{width:20px;height:20px}}
 .maintenance-footer{margin-top:48px;font-size:11px;letter-spacing:.1em;color:var(--g600)}
