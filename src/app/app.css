@@ -57,7 +57,7 @@ nav.nav-scrolled{padding:12px 0;background:rgba(0,0,0,.92);backdrop-filter:blur(
 .hero-ctas{display:none}
 
 /* CTA BAR */
-.cta-bar{display:flex;justify-content:center;padding:40px 24px;background:var(--black);border-bottom:1px solid rgba(255,255,255,.06)}
+.cta-bar{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;padding:40px 24px;background:var(--black);border-bottom:1px solid rgba(255,255,255,.06)}
 .cta-bar a{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--black);background:var(--accent);text-decoration:none;padding:16px 48px;transition:all .35s var(--ease)}
 .cta-bar a:hover{background:var(--accent-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,.2)}
 
@@ -271,3 +271,21 @@ nav.nav-scrolled{padding:12px 0;background:rgba(0,0,0,.92);backdrop-filter:blur(
 .social-float a.ig:hover{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
 @media(max-width:768px){.social-float{gap:2px;padding:6px;border-radius:0 13px 13px 0}.social-float a{width:40px;height:40px}.social-float a svg{width:20px;height:20px}}
 .maintenance-footer{margin-top:48px;font-size:11px;letter-spacing:.1em;color:var(--g600)}
+
+/* ---- WHATSAPP BUTTONS + LANGUAGE TOGGLE ---- */
+.nav-wa{display:inline-flex;align-items:center;gap:7px;color:#25d366;text-decoration:none;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:11px 18px;border:1px solid rgba(37,211,102,.5);transition:all .35s var(--ease)}
+.nav-wa svg{width:15px;height:15px}
+.nav-wa:hover{background:#25d366;color:var(--black)}
+.nav-wa::before{display:none}
+.lang-toggle{display:inline-flex;align-items:center;gap:5px;background:0 0;border:1px solid rgba(255,255,255,.15);color:var(--g400);cursor:pointer;padding:8px 11px;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.12em;transition:border-color .3s}
+.lang-toggle:hover{border-color:rgba(255,255,255,.4)}
+.lang-toggle span{transition:color .3s}
+.lang-toggle span.active{color:var(--white)}
+.lang-toggle .lang-sep{color:var(--g600)}
+.cta-wa{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:#25d366;text-decoration:none;padding:16px 40px;transition:all .35s var(--ease)}
+.cta-wa svg{width:18px;height:18px}
+.cta-wa:hover{background:#1ebe57;transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.25)}
+.mobile-menu-wa{color:#25d366!important}
+.mobile-lang-toggle{margin-top:32px;display:inline-flex;align-items:center;gap:8px;background:0 0;border:1px solid rgba(255,255,255,.18);color:var(--g400);cursor:pointer;padding:12px 22px;font-family:var(--font-body);font-size:16px;font-weight:600;letter-spacing:.15em}
+.mobile-lang-toggle span.active{color:var(--white)}
+.mobile-lang-toggle .lang-sep{color:var(--g600)}
