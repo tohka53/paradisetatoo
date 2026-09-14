@@ -46,11 +46,6 @@
                 "glob": "**/*",
                 "input": "public",
                 "output": "/"
-              },
-              {
-                "glob": "**/*.{jpg,jpeg,png,gif,webp,svg}",
-                "input": "public",
-                "output": "/assets/"
               }
             ],
             "styles": ["src/styles.scss"],
