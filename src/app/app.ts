@@ -89,7 +89,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     'contact.attach': { es: 'FOTO DE REFERENCIA (OPCIONAL)', en: 'REFERENCE PHOTO (OPTIONAL)' },
     'contact.attachBtn': { es: 'ADJUNTAR IMAGEN', en: 'ATTACH IMAGE' },
     'contact.attachRemove': { es: 'QUITAR', en: 'REMOVE' },
-    'contact.attachInvalid': { es: 'Adjuntá una imagen válida (JPG, PNG, WEBP) de máximo 4 MB.', en: 'Attach a valid image (JPG, PNG, WEBP) up to 4 MB.' },
+    'contact.attachInvalid': { es: 'Adjuntá una imagen válida (JPG, PNG, WEBP) de hasta 15 MB.', en: 'Attach a valid image (JPG, PNG, WEBP) up to 15 MB.' },
     'contact.submit': { es: 'ENVIAR CONSULTA', en: 'SEND INQUIRY' },
     'footer.follow': { es: 'SÍGUENOS', en: 'FOLLOW US' },
     'footer.nav': { es: 'NAVEGACIÓN', en: 'NAVIGATION' },
@@ -269,20 +269,53 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  onAttachmentChange(event: Event): void {
+  private async compressImage(file: File): Promise<File | null> {
+    try {
+      const bmp = await createImageBitmap(file);
+      const scale = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
+      const w = Math.max(1, Math.round(bmp.width * scale));
+      const h = Math.max(1, Math.round(bmp.height * scale));
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return null;
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(bmp, 0, 0, w, h);
+      bmp.close();
+      for (const q of [0.8, 0.65, 0.5, 0.35]) {
+        const blob = await new Promise<Blob | null>(r => canvas.toBlob(r, 'image/jpeg', q));
+        if (blob && blob.size <= 1024 * 1024) {
+          return new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', { type: 'image/jpeg' });
+        }
+      }
+      return null;
+    } catch {
+      return null;
+    }
+  }
+
+  async onAttachmentChange(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     const file = input.files && input.files[0];
     this.attachmentError = false;
     if (!file) { this.clearAttachment(input); return; }
     const okType = /^image\/(jpeg|png|webp|gif|heic|heif)$/i.test(file.type);
-    if (!okType || file.size > 4 * 1024 * 1024) {
+    if (!okType || file.size > 15 * 1024 * 1024) {
+      this.attachmentError = true;
+      this.clearAttachment(input);
+      return;
+    }
+    const small = await this.compressImage(file);
+    if (!small) {
       this.attachmentError = true;
       this.clearAttachment(input);
       return;
     }
     if (this.attachmentPreview) URL.revokeObjectURL(this.attachmentPreview);
-    this.attachmentFile = file;
-    this.attachmentPreview = URL.createObjectURL(file);
+    this.attachmentFile = small;
+    this.attachmentPreview = URL.createObjectURL(small);
   }
 
   clearAttachment(input?: HTMLInputElement): void {

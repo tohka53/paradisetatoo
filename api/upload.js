@@ -1,6 +1,6 @@
 const { put } = require('@vercel/blob');
 
-const MAX_BYTES = 4 * 1024 * 1024;
+const MAX_BYTES = 1536 * 1024;
 const ALLOWED = /^image\/(jpeg|png|webp|gif|heic|heif)$/i;
 
 module.exports = async function handler(req, res) {
