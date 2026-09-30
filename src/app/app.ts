@@ -89,7 +89,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     'contact.attach': { es: 'FOTO DE REFERENCIA (OPCIONAL)', en: 'REFERENCE PHOTO (OPTIONAL)' },
     'contact.attachBtn': { es: 'ADJUNTAR IMAGEN', en: 'ATTACH IMAGE' },
     'contact.attachRemove': { es: 'QUITAR', en: 'REMOVE' },
-    'contact.attachInvalid': { es: 'Adjuntá una imagen válida (JPG, PNG, WEBP) de máximo 5 MB.', en: 'Attach a valid image (JPG, PNG, WEBP) up to 5 MB.' },
+    'contact.attachInvalid': { es: 'Adjuntá una imagen válida (JPG, PNG, WEBP) de máximo 4 MB.', en: 'Attach a valid image (JPG, PNG, WEBP) up to 4 MB.' },
     'contact.submit': { es: 'ENVIAR CONSULTA', en: 'SEND INQUIRY' },
     'footer.follow': { es: 'SÍGUENOS', en: 'FOLLOW US' },
     'footer.nav': { es: 'NAVEGACIÓN', en: 'NAVIGATION' },
@@ -275,7 +275,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.attachmentError = false;
     if (!file) { this.clearAttachment(input); return; }
     const okType = /^image\/(jpeg|png|webp|gif|heic|heif)$/i.test(file.type);
-    if (!okType || file.size > 5 * 1024 * 1024) {
+    if (!okType || file.size > 4 * 1024 * 1024) {
       this.attachmentError = true;
       this.clearAttachment(input);
       return;
@@ -292,42 +292,19 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     if (input) input.value = '';
   }
 
-  private submitWithAttachment(form: HTMLFormElement): Promise<boolean> {
-    return new Promise(resolve => {
-      const frameName = 'fs-frame-' + Date.now();
-      const iframe = document.createElement('iframe');
-      iframe.name = frameName;
-      iframe.style.display = 'none';
-      const next = document.createElement('input');
-      next.type = 'hidden';
-      next.name = '_next';
-      next.value = location.origin + '/gracias.html';
-      let done = false;
-      const finish = (ok: boolean) => {
-        if (done) return;
-        done = true;
-        clearTimeout(timer);
-        iframe.remove();
-        next.remove();
-        form.removeAttribute('target');
-        form.removeAttribute('action');
-        form.removeAttribute('enctype');
-        resolve(ok);
-      };
-      const timer = setTimeout(() => finish(false), 30000);
-      iframe.addEventListener('load', () => {
-        try {
-          if (iframe.contentWindow?.location.pathname === '/gracias.html') finish(true);
-        } catch { }
+  private async uploadAttachment(file: File): Promise<string | null> {
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': file.type, 'x-filename': file.name },
+        body: file
       });
-      document.body.appendChild(iframe);
-      form.appendChild(next);
-      form.action = 'https://formsubmit.co/paradisetattooantigua@gmail.com';
-      form.method = 'POST';
-      form.enctype = 'multipart/form-data';
-      form.target = frameName;
-      form.submit();
-    });
+      if (!res.ok) return null;
+      const json = await res.json();
+      return typeof json.url === 'string' ? json.url : null;
+    } catch {
+      return null;
+    }
   }
 
   async onContactSubmit(event: Event): Promise<void> {
@@ -340,18 +317,18 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.formError = false;
 
     try {
-      let ok: boolean;
+      data.delete('attachment');
       if (this.attachmentFile) {
-        ok = await this.submitWithAttachment(form);
-      } else {
-        data.delete('attachment');
-        const res = await fetch('https://formsubmit.co/ajax/paradisetattooantigua@gmail.com', {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: data
-        });
-        ok = res.ok;
+        const url = await this.uploadAttachment(this.attachmentFile);
+        if (!url) throw new Error('upload');
+        data.set('imagen_referencia', url);
       }
+      const res = await fetch('https://formsubmit.co/ajax/paradisetattooantigua@gmail.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: data
+      });
+      const ok = res.ok;
 
       if (ok) {
         this.formSuccess = true;
