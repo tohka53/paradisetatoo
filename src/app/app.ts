@@ -325,19 +325,13 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     if (input) input.value = '';
   }
 
-  private async uploadAttachment(file: File): Promise<string | null> {
-    try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        headers: { 'Content-Type': file.type, 'x-filename': file.name },
-        body: file
-      });
-      if (!res.ok) return null;
-      const json = await res.json();
-      return typeof json.url === 'string' ? json.url : null;
-    } catch {
-      return null;
-    }
+  private fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result).split(',')[1] || '');
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(file);
+    });
   }
 
   async onContactSubmit(event: Event): Promise<void> {
@@ -350,16 +344,25 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.formError = false;
 
     try {
-      data.delete('attachment');
+      const payload: Record<string, unknown> = {
+        nombre: data.get('nombre'),
+        email: data.get('email'),
+        telefono: data.get('telefono'),
+        diseno: data.get('diseno'),
+        artista: data.get('artista'),
+        website: data.get('_honey')
+      };
       if (this.attachmentFile) {
-        const url = await this.uploadAttachment(this.attachmentFile);
-        if (!url) throw new Error('upload');
-        data.set('imagen_referencia', url);
+        payload['imagen'] = {
+          name: this.attachmentFile.name,
+          type: this.attachmentFile.type,
+          data: await this.fileToBase64(this.attachmentFile)
+        };
       }
-      const res = await fetch('https://formsubmit.co/ajax/paradisetattooantigua@gmail.com', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: data
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
       const ok = res.ok;
 
