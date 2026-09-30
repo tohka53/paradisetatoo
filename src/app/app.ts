@@ -292,6 +292,44 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     if (input) input.value = '';
   }
 
+  private submitWithAttachment(form: HTMLFormElement): Promise<boolean> {
+    return new Promise(resolve => {
+      const frameName = 'fs-frame-' + Date.now();
+      const iframe = document.createElement('iframe');
+      iframe.name = frameName;
+      iframe.style.display = 'none';
+      const next = document.createElement('input');
+      next.type = 'hidden';
+      next.name = '_next';
+      next.value = location.origin + '/gracias.html';
+      let done = false;
+      const finish = (ok: boolean) => {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        iframe.remove();
+        next.remove();
+        form.removeAttribute('target');
+        form.removeAttribute('action');
+        form.removeAttribute('enctype');
+        resolve(ok);
+      };
+      const timer = setTimeout(() => finish(false), 30000);
+      iframe.addEventListener('load', () => {
+        try {
+          if (iframe.contentWindow?.location.pathname === '/gracias.html') finish(true);
+        } catch { }
+      });
+      document.body.appendChild(iframe);
+      form.appendChild(next);
+      form.action = 'https://formsubmit.co/paradisetattooantigua@gmail.com';
+      form.method = 'POST';
+      form.enctype = 'multipart/form-data';
+      form.target = frameName;
+      form.submit();
+    });
+  }
+
   async onContactSubmit(event: Event): Promise<void> {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
@@ -302,13 +340,20 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     this.formError = false;
 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/paradisetattooantigua@gmail.com', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: data
-      });
+      let ok: boolean;
+      if (this.attachmentFile) {
+        ok = await this.submitWithAttachment(form);
+      } else {
+        data.delete('attachment');
+        const res = await fetch('https://formsubmit.co/ajax/paradisetattooantigua@gmail.com', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data
+        });
+        ok = res.ok;
+      }
 
-      if (res.ok) {
+      if (ok) {
         this.formSuccess = true;
         form.reset();
         this.clearAttachment();
