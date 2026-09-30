@@ -244,6 +244,19 @@
           <option *ngFor="let artist of artists" [value]="artist.name">{{ artist.name }}</option>
         </select>
       </div>
+      <div class="form-group">
+        <label>{{ t('contact.attach') }}</label>
+        <input #attachInput type="file" name="attachment" accept="image/*" (change)="onAttachmentChange($event)" hidden>
+        <div class="attach-row">
+          <button type="button" class="attach-btn" (click)="attachInput.click()">{{ t('contact.attachBtn') }}</button>
+          <ng-container *ngIf="attachmentPreview">
+            <img class="attach-preview" [src]="attachmentPreview" alt="">
+            <span class="attach-name">{{ attachmentFile?.name }}</span>
+            <button type="button" class="attach-remove" (click)="clearAttachment(attachInput)">{{ t('contact.attachRemove') }}</button>
+          </ng-container>
+        </div>
+        <p *ngIf="attachmentError" class="attach-error">{{ t('contact.attachInvalid') }}</p>
+      </div>
       <button type="submit" class="btn-submit" [disabled]="formSubmitting">
         <span *ngIf="!formSubmitting">{{ t('contact.submit') }}</span>
         <span *ngIf="formSubmitting" class="btn-submit-loading">

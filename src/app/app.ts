@@ -40,6 +40,9 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   faqItems: FaqItem[] = [];
   viewerImage: string | null = null;
   formSubmitting = false;
+  attachmentFile: File | null = null;
+  attachmentPreview: string | null = null;
+  attachmentError = false;
   formSuccess = false;
   formError = false;
   private observer: IntersectionObserver | null = null;
@@ -83,6 +86,10 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     'contact.designPlaceholder': { es: 'Estilo, tamaño, ubicación en el cuerpo...', en: 'Style, size, body placement...' },
     'contact.artist': { es: 'ARTISTA DE PREFERENCIA', en: 'PREFERRED ARTIST' },
     'contact.artistNone': { es: 'Sin preferencia', en: 'No preference' },
+    'contact.attach': { es: 'FOTO DE REFERENCIA (OPCIONAL)', en: 'REFERENCE PHOTO (OPTIONAL)' },
+    'contact.attachBtn': { es: 'ADJUNTAR IMAGEN', en: 'ATTACH IMAGE' },
+    'contact.attachRemove': { es: 'QUITAR', en: 'REMOVE' },
+    'contact.attachInvalid': { es: 'Adjuntá una imagen válida (JPG, PNG, WEBP) de máximo 5 MB.', en: 'Attach a valid image (JPG, PNG, WEBP) up to 5 MB.' },
     'contact.submit': { es: 'ENVIAR CONSULTA', en: 'SEND INQUIRY' },
     'footer.follow': { es: 'SÍGUENOS', en: 'FOLLOW US' },
     'footer.nav': { es: 'NAVEGACIÓN', en: 'NAVIGATION' },
@@ -128,7 +135,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     { name: 'KEVIN', specialty: 'Fineline & Micro Realism', image: '/kevin/kevin.JPG', experience: '6 años', bioEs: 'Originario de Los Ángeles, California, ahora radicado en Antigua, Guatemala. Llevo seis años tatuando. Mi trabajo se enfoca en fineline, anime y micro realismo en negro y gris. Disfruto trabajar tanto en piezas pequeñas como en gran escala, y siempre busco crear tatuajes que resalten lo mejor de cada idea. Valoro mucho a los clientes que confían en mi proceso creativo, sabiendo que su visión siempre es parte del diseño.', bioEn: 'Originally from Los Angeles, California, and now based in Antigua, Guatemala. I\'ve been tattooing for six years. My work focuses on fine line, anime, and black & grey micro realism. I enjoy working on both small and large-scale pieces and always aim to create tattoos that bring out the best in each idea. I really value clients who trust my creative process while knowing their vision is always part of the design.', styles: ['Fineline', 'Anime', 'Micro Realism', 'Black & Grey'] },
     { name: 'BRANDON', specialty: 'Tradicional & Línea Fina', image: '/brandon/brandonperfil.JPG', bioEs: 'Especializado en tatuajes tradicionales y línea fina.', bioEn: 'Specialized in traditional tattoos and fine line work.', experience: '+14 años', styles: ['Traditional', 'Fine Line', 'Black & Grey', 'Color'] },
     { name: 'ALEXA', specialty: 'Fineline & Minimalista', image: '/made/madeperfil.JPG', experience: '5 años', bioEs: 'Mi nombre es Alexa y soy una tatuadora guatemalteca. Durante los últimos cinco años, he estado desarrollando mi técnica de línea fina, creando diseños ilustrativos y botánicos. Mi objetivo es crear diseños únicos y personalizados que se integren armoniosamente con tu cuerpo, fluyendo con naturalidad con sus formas y movimientos. Cada pieza está diseñada no solo para ser visualmente delicada y atemporal, sino para convertirse en algo significativo: arte que amarás y llevarás contigo toda la vida.', bioEn: 'My name is Alexa and I am a Guatemalan tattoo artist. Over the last five years, I have been developing my fine line technique, creating illustrative and botanical designs. My goal is to create unique, custom designs that integrate harmoniously with your body, flowing naturally with its shapes and movements. Each piece is designed not only to be visually delicate and timeless, but to become something meaningful — art that you will love and carry with you for life.', styles: ['Fineline', 'Minimalist', 'Dotwork', 'Botanical'] },
-    { name: 'ISSAC', specialty: '', image: '/issac/fotoperfilissac.jpeg', experience: '', bioEs: '', bioEn: '', styles: [] },    { name: 'ANGEL', specialty: 'Blackwork Ilustrativo', image: '/angel/angel.jpeg', experience: '3 años', bioEs: 'Con 3 años de experiencia en el mundo del tattoo, mi estilo se ha inclinado por una tendencia blackwork, enfatizando en blackwork ilustrativo y ornamentos filosos. No obstante, también disfruto de estilos como el fineline y black and grey. Hablando de arte en general, tengo obras en pintura al óleo, acrílico y acuarela, así como dibujos con carboncillo, grafito, crayones de colores y tinta usando rapidógrafos. Cuento con 3 años de arquitectura y 2 semestres de diseño gráfico, ambos en la Universidad de San Carlos de Guatemala.', bioEn: 'With 3 years of experience in the tattoo world, my style has gravitated toward a blackwork tendency, with an emphasis on illustrative blackwork and sharp ornamental designs. I also enjoy styles such as fineline and black and grey. Speaking of art in general, I have works in oil painting, acrylic, and watercolor, as well as drawings in charcoal, graphite, colored pencils, and ink using technical pens. I have 3 years of Architecture and 2 semesters of Graphic Design, both at the Universidad de San Carlos de Guatemala.', styles: ['Blackwork', 'Illustrative', 'Ornamental', 'Fineline'] }
+    { name: 'ISSAC', specialty: '', image: '/issac/fotoperfilissac.jpeg', experience: '', bioEs: '', bioEn: '', styles: [] }
   ];
 
   works: Work[] = [
@@ -138,8 +145,6 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     { id: 14, image: '/made/6.jpeg', style: '', artist: 'Alexa', showInGallery: true, showInProfile: true },
     { id: 17, image: '/abhram/3.png', style: '', artist: 'ABRAHAM LEMUS', showInGallery: true, showInProfile: true },
     { id: 19, image: '/abhram/5.jpeg', style: '', artist: 'ABRAHAM LEMUS', showInGallery: true, showInProfile: true },
-    { id: 21, image: '/angel/2.jpg', style: '', artist: 'ANGEL', showInGallery: true, showInProfile: true },
-    { id: 23, image: '/angel/4.jpg', style: '', artist: 'ANGEL', showInGallery: true, showInProfile: true },
     { id: 26, image: '/issac/1.jpeg', style: '', artist: 'ISSAC', showInGallery: true, showInProfile: true },
     { id: 27, image: '/issac/2.jpeg', style: '', artist: 'ISSAC', showInGallery: false, showInProfile: true },
     { id: 28, image: '/issac/3.jpeg', style: '', artist: 'ISSAC', showInGallery: true, showInProfile: true },
@@ -264,6 +269,29 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  onAttachmentChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files && input.files[0];
+    this.attachmentError = false;
+    if (!file) { this.clearAttachment(input); return; }
+    const okType = /^image\/(jpeg|png|webp|gif|heic|heif)$/i.test(file.type);
+    if (!okType || file.size > 5 * 1024 * 1024) {
+      this.attachmentError = true;
+      this.clearAttachment(input);
+      return;
+    }
+    if (this.attachmentPreview) URL.revokeObjectURL(this.attachmentPreview);
+    this.attachmentFile = file;
+    this.attachmentPreview = URL.createObjectURL(file);
+  }
+
+  clearAttachment(input?: HTMLInputElement): void {
+    if (this.attachmentPreview) URL.revokeObjectURL(this.attachmentPreview);
+    this.attachmentFile = null;
+    this.attachmentPreview = null;
+    if (input) input.value = '';
+  }
+
   async onContactSubmit(event: Event): Promise<void> {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
@@ -283,6 +311,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
       if (res.ok) {
         this.formSuccess = true;
         form.reset();
+        this.clearAttachment();
         // Scroll to the success message
         setTimeout(() => {
           document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
