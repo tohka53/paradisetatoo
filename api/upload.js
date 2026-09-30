@@ -1,5 +1,3 @@
-const { put } = require('@vercel/blob');
-
 const MAX_BYTES = 1536 * 1024;
 const ALLOWED = /^image\/(jpeg|png|webp|gif|heic|heif)$/i;
 
@@ -15,6 +13,8 @@ module.exports = async function handler(req, res) {
   const raw = String(req.headers['x-filename'] || 'referencia');
   const safe = raw.replace(/[^a-zA-Z0-9._-]/g, '_').slice(-80) || 'referencia';
   try {
+    if (!process.env.BLOB_READ_WRITE_TOKEN) throw new Error('missing BLOB_READ_WRITE_TOKEN');
+    const { put } = require('@vercel/blob');
     const blob = await put('referencias/' + safe, req, {
       access: 'public',
       addRandomSuffix: true,
@@ -22,6 +22,7 @@ module.exports = async function handler(req, res) {
     });
     return res.status(200).json({ url: blob.url });
   } catch (e) {
-    return res.status(500).json({ error: 'upload_failed' });
+    console.error('upload_failed', e);
+    return res.status(500).json({ error: 'upload_failed', detail: String(e && e.message || e) });
   }
 };
