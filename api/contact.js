@@ -41,8 +41,13 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'invalid_image' });
     }
     const ext = type.split('/')[1].replace('jpeg', 'jpg');
-    const base = clean(img.name, 60).replace(/[^a-zA-Z0-9_-]/g, '_') || 'referencia';
-    attachments.push({ filename: base + '.' + ext, content: data });
+    const who = nombre
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-zA-Z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '')
+      .slice(0, 40) || 'cliente';
+    attachments.push({ filename: who + '_referencia.' + ext, content: data });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -70,7 +75,7 @@ module.exports = async function handler(req, res) {
         from: process.env.CONTACT_FROM || 'Paradise Tattoo <onboarding@resend.dev>',
         to: [process.env.CONTACT_TO || 'paradisetattooantigua@gmail.com'],
         reply_to: email,
-        subject: 'Nueva consulta - Paradise Tattoo',
+        subject: 'Nueva consulta - ' + nombre.replace(/[\r\n]+/g, ' '),
         html,
         attachments
       })
